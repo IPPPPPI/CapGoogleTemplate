@@ -14,7 +14,7 @@ import base64
 
 # Flask app setup
 app = Flask(__name__)
-app.secret_key = os.environ.get("FLASK_SECRET_KEY") #or os.urandom(24)
+app.secret_key = os.environ.get("FLASK_SECRET_KEY") or os.urandom(24)
 
 # Configuration
 secrets = getSecrets()
