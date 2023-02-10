@@ -23,7 +23,8 @@
             <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(blog.author.image.read())}}">
         {% endif %}
             {{blog.content}} <br>
-            {{blog.tag}}
+            {{blog.tag}} <br>
+            {{blog.approval}} <br>
 
     </p>
     <a href="/comment/new/{{blog.id}}" class="btn btn-primary btn-sm" role="button">New Comment</a>

@@ -98,6 +98,7 @@ def blogNew():
             subject = form.subject.data,
             content = form.content.data,
             tag = form.tag.data,
+            approval = form.approval.data,
             author = current_user.id,
             # This sets the modifydate to the current datetime.
             modify_date = dt.datetime.utcnow

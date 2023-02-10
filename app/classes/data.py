@@ -42,6 +42,7 @@ class Blog(Document):
     subject = StringField()
     content = StringField()
     tag = StringField()
+    approval = StringField()
     create_date = DateTimeField(default=dt.datetime.utcnow)
     modify_date = DateTimeField()
 

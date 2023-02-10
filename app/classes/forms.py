@@ -19,6 +19,7 @@ class BlogForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Blog', validators=[DataRequired()])
     tag = StringField('Tag', validators=[DataRequired()])
+    approval = SelectField('Approval',choices=[("Given","Given"),("Not Given", "Not Given")],validators=[DataRequired()] )
     submit = SubmitField('Blog')
 
 class CommentForm(FlaskForm):

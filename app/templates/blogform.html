@@ -30,6 +30,13 @@
                 {% endfor %}
             </p>
             <p>
+                {{ form.approval.label }}<br>
+                {{ form.approval() }}<br>
+                {% for error in form.approval.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
                 {{form.submit()}}
             </p>
         </form>
