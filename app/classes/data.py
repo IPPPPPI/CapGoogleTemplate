@@ -50,7 +50,7 @@ class Blog(Document):
         'ordering': ['-createdate']
     }
 
-class animal(Document):
+class Animal(Document):
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 
     subject = StringField()
     content = StringField()
@@ -58,7 +58,7 @@ class animal(Document):
     approval = StringField()
     create_date = DateTimeField(default=dt.datetime.utcnow)
     modify_date = DateTimeField()
-    
+
     meta = {
         'ordering': ['-createdate']
     }
