@@ -22,7 +22,7 @@ class BlogForm(FlaskForm):
     approval = SelectField('Approval',choices=[("Given","Given"),("Not Given", "Not Given")],validators=[DataRequired()] )
     submit = SubmitField('Blog')
 
-class Animalform(FlaskForm):
+class AnimalForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Animal', validators=[DataRequired()])
     tag = StringField('Tag', validators=[DataRequired()])

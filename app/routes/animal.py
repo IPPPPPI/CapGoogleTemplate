@@ -166,7 +166,7 @@ def animalEdit(animalID):
 
 @app.route('/comment/new/<animalID>', methods=['GET', 'POST'])
 @login_required
-def commentNew(animalID):
+def animalcommentNew(animalID):
     animal = Animal.objects.get(id=animalID)
     form = CommentForm()
     if form.validate_on_submit():
@@ -181,7 +181,7 @@ def commentNew(animalID):
 
 @app.route('/comment/edit/<commentID>', methods=['GET', 'POST'])
 @login_required
-def commentEdit(commentID):
+def animalcommentEdit(commentID):
     editComment = Comment.objects.get(id=commentID)
     if current_user != editComment.author:
         flash("You can't edit a comment you didn't write.")
@@ -201,7 +201,7 @@ def commentEdit(commentID):
 
 @app.route('/comment/delete/<commentID>')
 @login_required
-def commentDelete(commentID): 
+def animalcommentDelete(commentID): 
     deleteComment = Comment.objects.get(id=commentID)
     deleteComment.delete()
     flash('The comments was deleted.')
