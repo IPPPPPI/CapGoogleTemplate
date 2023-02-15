@@ -9,3 +9,7 @@ def aboutus():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/animal/new')
+def animal():
+    return render_template("animal.html")
