@@ -3,12 +3,12 @@
 {% block body %}
 
 {% if animal %}
-    {{moment(animal.create_date).calendar()}} by {{animal.author.fname}} {{animal.author.lname}} 
-    {% if animal.modifydate %}
-        modified {{moment(animal.modifydate).calendar()}}
+    {{moment(animal.animalcreate_date).calendar()}} by {{animal.animalauthor.fname}} {{animal.animalauthor.lname}} 
+    {% if animal.animalmodifydate %}
+        modified {{moment(animal.animalmodifydate).calendar()}}
     {% endif %}
     <br>
-    {% if animal.author == current_user %}
+    {% if animal.animalauthor == current_user %}
         <a data-toggle="tooltip" data-placement="top" title="Delete Animal" href="/animal/delete/{{animal.id}}">
             <img width="40" class="bottom-image" src="/static/delete.png">
         </a>
