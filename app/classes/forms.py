@@ -23,11 +23,11 @@ class BlogForm(FlaskForm):
     submit = SubmitField('Blog')
 
 class AnimalForm(FlaskForm):
-    subject = StringField('Subject', validators=[DataRequired()])
-    content = TextAreaField('Animal', validators=[DataRequired()])
-    tag = StringField('Tag', validators=[DataRequired()])
-    approval = SelectField('Approval',choices=[("Given","Given"),("Not Given", "Not Given")],validators=[DataRequired()] )
-    submit = SubmitField('Animal')
+    animalsubject = StringField('Subject', validators=[DataRequired()])
+    animalcontent = TextAreaField('Animal', validators=[DataRequired()])
+    animaltag = StringField('Tag', validators=[DataRequired()])
+    animalapproval = SelectField('Approval',choices=[("Given","Given"),("Not Given", "Not Given")],validators=[DataRequired()] )
+    animalsubmit = SubmitField('Animal')
 
 class CommentForm(FlaskForm):
     content = TextAreaField('Comment', validators=[DataRequired()])
