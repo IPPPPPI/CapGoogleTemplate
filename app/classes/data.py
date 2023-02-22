@@ -51,13 +51,13 @@ class Blog(Document):
     }
 
 class Animal(Document):
-    author = ReferenceField('User',reverse_delete_rule=CASCADE) 
-    subject = StringField()
-    content = StringField()
-    tag = StringField()
-    approval = StringField()
-    create_date = DateTimeField(default=dt.datetime.utcnow)
-    modify_date = DateTimeField()
+    animalauthor = ReferenceField('User',reverse_delete_rule=CASCADE) 
+    animalsubject = StringField()
+    animalcontent = StringField()
+    animaltag = StringField()
+    animalapproval = StringField()
+    animalcreate_date = DateTimeField(default=dt.datetime.utcnow)
+    animalmodify_date = DateTimeField()
 
     meta = {
         'ordering': ['-createdate']

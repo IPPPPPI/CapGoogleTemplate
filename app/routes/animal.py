@@ -90,13 +90,13 @@ def animalNew():
         newAnimal = Animal(
             # the left side is the name of the field from the data table
             # the right side is the data the user entered which is held in the form object.
-            subject = form.subject.data,
-            content = form.content.data,
-            tag = form.tag.data,
-            approval = form.approval.data,
-            author = current_user.id,
+            animalsubject = form.animalsubject.data,
+            animalcontent = form.animalcontent.data,
+            animaltag = form.animaltag.data,
+            animalapproval = form.animalapproval.data,
+            animalauthor = current_user.id,
             # This sets the modifydate to the current datetime.
-            modify_date = dt.datetime.utcnow
+            animalmodify_date = dt.datetime.utcnow
         )
         # This is a method that saves the data to the mongoDB database.
         newAnimal.save()
@@ -136,9 +136,9 @@ def animalEdit(animalID):
     if form.validate_on_submit():
         # update() is mongoengine method for updating an existing document with new data.
         editAnimal.update(
-            subject = form.subject.data,
-            content = form.content.data,
-            tag = form.tag.data,
+            animalsubject = form.animalsubject.data,
+            animalcontent = form.animalcontent.data,
+            animaltag = form.animaltag.data,
             modify_date = dt.datetime.utcnow
         )
         # After updating the document, send the user to the updated animal using a redirect.
@@ -146,9 +146,9 @@ def animalEdit(animalID):
 
     # if the form has NOT been submitted then take the data from the editAnimal object
     # and place it in the form object so it will be displayed to the user on the template.
-    form.subject.data = editAnimal.subject
-    form.content.data = editAnimal.content
-    form.tag.data = editAnimal.tag
+    form.animalsubject.data = editAnimal.subject
+    form.animalcontent.data = editAnimal.content
+    form.animaltag.data = editAnimal.tag
 
 
     # Send the user to the animal form that is now filled out with the current information

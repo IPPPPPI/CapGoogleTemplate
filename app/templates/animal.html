@@ -17,14 +17,14 @@
         </a>
     {% endif %}
 
-    <h1 class="display-5">{{animal.subject}}</h1>
+    <h1 class="display-5">{{animal.animalsubject}}</h1>
     <p class="fs-3 text-break">
         {% if animal.author.image %}
             <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(animal.author.image.read())}}">
         {% endif %}
-            {{animal.content}} <br>
-            {{animal.tag}} <br>
-            {{animal.approval}} <br>
+            {{animal.animalcontent}} <br>
+            {{animal.animaltag}} <br>
+            {{animal.animalapproval}} <br>
 
     </p>
     <a href="/comment/new/{{animal.id}}" class="btn btn-primary btn-sm" role="button">New Comment</a>
