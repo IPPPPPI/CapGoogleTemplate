@@ -20,20 +20,20 @@
                 {% endif %}
 
                 <a href="/animal/{{animal.id}}">
-                    {{moment(animal.create_date).calendar()}}
+                    {{moment(animal.animalcreate_date).calendar()}}
                 </a>
             </div>
             <div class="col-2">
                 {% if loop.index == 1 %}
                 <h3 class="display-5">User</h3>
                 {% endif %}
-                {{animal.author.fname}} {{animal.author.lname}}
+                {{animal.animalauthor.fname}} {{animal.animalauthor.lname}}
             </div>
             <div class="col">
                 {% if loop.index == 1 %}
                     <h3 class="display-5">Subject</h3>
                 {% endif %}
-                {{animal.subject}}
+                {{animal.animalsubject}}
             </div>
         </div>
     {% endfor %}
