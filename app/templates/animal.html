@@ -19,7 +19,7 @@
 
     <h1 class="display-5">{{animal.animalsubject}}</h1>
     <p class="fs-3 text-break">
-        {% if animal.author.image %}
+        {% if animal.animalauthor.image %}
             <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(animal.author.image.read())}}">
         {% endif %}
             {{animal.animalcontent}} <br>

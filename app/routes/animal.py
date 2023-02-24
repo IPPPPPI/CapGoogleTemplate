@@ -11,6 +11,7 @@ import datetime as dt
 @app.route('/animal/list')
 @app.route('/animals')
 # This means the user must be logged in to see this page
+@login_required
 def animalList():
     # This retrieves all of the 'animals' that are stored in MongoDB and places them in a
     # mongoengine object as a list of dictionaries name 'animals'.
@@ -36,9 +37,8 @@ def animal(animalID):
     # there is a field on the comment collection called 'animal' that is a reference the Animal
     # document it is related to.  You can use the animalID to get the animal and then you can use
     # the animal object (thisAnimal in this case) to get all the comments.
-    theseAnimals = Animal.objects(animal=thisAnimal)
     # Send the animal object and the comments object to the 'animal.html' template.
-    return render_template('animals.html',animal=thisAnimal,comments=theseAnimals)
+    return render_template('animal.html',animal=thisAnimal)
 
 # This route will delete a specific animal.  You can only delete the animal if you are the author.
 # <animalID> is a variable sent to this route by the user who clicked on the trash can in the 
