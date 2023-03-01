@@ -52,7 +52,7 @@ def animalDelete(animalID):
     deleteAnimal = Animal.objects.get(id=animalID)
     # check to see if the user that is making this request is the author of the animal.
     # current_user is a variable provided by the 'flask_login' library.
-    if current_user == deleteAnimal.author:
+    if current_user == deleteAnimal.animalauthor:
         # delete the animal using the delete() method from Mongoengine
         deleteAnimal.delete()
         # send a message to the user that the animal was deleted.
@@ -127,7 +127,7 @@ def animalEdit(animalID):
     # if the user that requested to edit this animal is not the author then deny them and
     # send them back to the animal. If True, this will exit the route completely and none
     # of the rest of the route will be run.
-    if current_user != editAnimal.author:
+    if current_user != editAnimal.animalauthor:
         flash("You can't edit a animal you don't own.")
         return redirect(url_for('animal',animalID=animalID))
     # get the form object
@@ -139,16 +139,16 @@ def animalEdit(animalID):
             animalsubject = form.animalsubject.data,
             animalcontent = form.animalcontent.data,
             animaltag = form.animaltag.data,
-            modify_date = dt.datetime.utcnow
+            animalmodify_date = dt.datetime.utcnow
         )
         # After updating the document, send the user to the updated animal using a redirect.
         return redirect(url_for('animal',animalID=animalID))
 
     # if the form has NOT been submitted then take the data from the editAnimal object
     # and place it in the form object so it will be displayed to the user on the template.
-    form.animalsubject.data = editAnimal.subject
-    form.animalcontent.data = editAnimal.content
-    form.animaltag.data = editAnimal.tag
+    form.animalsubject.data = editAnimal.animalsubject
+    form.animalcontent.data = editAnimal.animalcontent
+    form.animaltag.data = editAnimal.animaltag
 
 
     # Send the user to the animal form that is now filled out with the current information
@@ -163,45 +163,45 @@ def animalEdit(animalID):
 # about how comments are related to animals.  Additionally, take a look at data.py to see how the
 # relationship is defined in the Animal and the Comment collections.
 
-@app.route('/comment/new/<animalID>', methods=['GET', 'POST'])
+@app.route('/animalcomment/new/<animalID>', methods=['GET', 'POST'])
 @login_required
 def animalcommentNew(animalID):
     animal = Animal.objects.get(id=animalID)
-    form = CommentForm()
-    if form.validate_on_submit():
+    Animalform = CommentForm()
+    if Animalform.validate_on_submit():
         newComment = Comment(
             author = current_user.id,
             animal = animalID,
-            content = form.content.data
+            content = Animalform.content.data
         )
         newComment.save()
         return redirect(url_for('animal',animalID=animalID))
-    return render_template('commentform.html',form=form,animal=animal)
+    return render_template('commentform.html',Animalform=Animalform,animal=animal)
 
-@app.route('/comment/edit/<commentID>', methods=['GET', 'POST'])
+@app.route('/animalcomment/edit/<animalcommentID>', methods=['GET', 'POST'])
 @login_required
-def animalcommentEdit(commentID):
-    editComment = Comment.objects.get(id=commentID)
-    if current_user != editComment.author:
+def animalcommentEdit(animalcommentID):
+    editComment = Comment.objects.get(id=animalcommentID)
+    if current_user != editComment.animalauthor:
         flash("You can't edit a comment you didn't write.")
         return redirect(url_for('animal',animalID=editComment.animal.id))
     animal = Animal.objects.get(id=editComment.animal.id)
-    form = CommentForm()
-    if form.validate_on_submit():
+    animalform = CommentForm()
+    if animalform.validate_on_submit():
         editComment.update(
-            content = form.content.data,
+            content = animalform.content.data,
             modifydate = dt.datetime.utcnow
         )
         return redirect(url_for('animal',animalID=editComment.animal.id))
 
-    form.content.data = editComment.content
+    animalform.content.data = editComment.content
 
-    return render_template('commentform.html',form=form,animal=animal)   
+    return render_template('commentform.html',animalform=animalform,animal=animal)   
 
-@app.route('/comment/delete/<commentID>')
+@app.route('/animalcomment/delete/<animalcommentID>')
 @login_required
-def animalcommentDelete(commentID): 
-    deleteComment = Comment.objects.get(id=commentID)
+def animalcommentDelete(animalcommentID): 
+    deleteComment = Comment.objects.get(id=animalcommentID)
     deleteComment.delete()
     flash('The comments was deleted.')
     return redirect(url_for('animal',animalID=deleteComment.animal.id)) 
