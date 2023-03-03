@@ -37,8 +37,9 @@ def animal(animalID):
     # there is a field on the comment collection called 'animal' that is a reference the Animal
     # document it is related to.  You can use the animalID to get the animal and then you can use
     # the animal object (thisAnimal in this case) to get all the comments.
+    theseComments = Comment.objects(animal=thisAnimal)
     # Send the animal object and the comments object to the 'animal.html' template.
-    return render_template('animal.html',animal=thisAnimal)
+    return render_template('animal.html',animal=thisAnimal, comments=theseComments)
 
 # This route will delete a specific animal.  You can only delete the animal if you are the author.
 # <animalID> is a variable sent to this route by the user who clicked on the trash can in the 
@@ -63,7 +64,7 @@ def animalDelete(animalID):
     # Retrieve all of the remaining animals so that they can be listed.
     animals = Animal.objects()  
     # Send the user to the list of remaining animals.
-    return render_template('animal.html',animals=animals)
+    return render_template('animals.html',animals=animals)
 
 # This route actually does two things depending on the state of the if statement 
 # 'if form.validate_on_submit()'. When the route is first called, the form has not 
@@ -167,41 +168,41 @@ def animalEdit(animalID):
 @login_required
 def animalcommentNew(animalID):
     animal = Animal.objects.get(id=animalID)
-    Animalform = CommentForm()
-    if Animalform.validate_on_submit():
+    form = AnimalForm()
+    if form.validate_on_submit():
         newComment = Comment(
             author = current_user.id,
             animal = animalID,
-            content = Animalform.content.data
+            content = form.animalcontent.data
         )
         newComment.save()
         return redirect(url_for('animal',animalID=animalID))
-    return render_template('commentform.html',Animalform=Animalform,animal=animal)
+    return render_template('animalform.html',form=form,animal=animal)
 
-@app.route('/animalcomment/edit/<animalcommentID>', methods=['GET', 'POST'])
+@app.route('/animalcomment/edit/<commentID>', methods=['GET', 'POST'])
 @login_required
-def animalcommentEdit(animalcommentID):
-    editComment = Comment.objects.get(id=animalcommentID)
-    if current_user != editComment.animalauthor:
+def animalcommentEdit(commentID):
+    editComment = Comment.objects.get(id=commentID)
+    if current_user != editComment.author:
         flash("You can't edit a comment you didn't write.")
         return redirect(url_for('animal',animalID=editComment.animal.id))
     animal = Animal.objects.get(id=editComment.animal.id)
-    animalform = CommentForm()
-    if animalform.validate_on_submit():
+    form = AnimalForm()
+    if form.validate_on_submit():
         editComment.update(
-            content = animalform.content.data,
-            modifydate = dt.datetime.utcnow
+            content = form.animalcontent.data,
+            modify_date = dt.datetime.utcnow
         )
         return redirect(url_for('animal',animalID=editComment.animal.id))
 
-    animalform.content.data = editComment.content
+    form.animalcontent.data = editComment.content
 
-    return render_template('commentform.html',animalform=animalform,animal=animal)   
+    return render_template('animalform.html',form=form,animal=animal)   
 
-@app.route('/animalcomment/delete/<animalcommentID>')
+@app.route('/animalcomment/delete/<commentID>')
 @login_required
-def animalcommentDelete(animalcommentID): 
-    deleteComment = Comment.objects.get(id=animalcommentID)
+def animalcommentDelete(commentID): 
+    deleteComment = Comment.objects.get(id=commentID)
     deleteComment.delete()
     flash('The comments was deleted.')
     return redirect(url_for('animal',animalID=deleteComment.animal.id)) 

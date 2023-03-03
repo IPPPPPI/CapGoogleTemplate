@@ -27,14 +27,14 @@
             {{animal.animalapproval}} <br>
 
     </p>
-    <a href="/comment/new/{{animal.id}}" class="btn btn-primary btn-sm" role="button">New Comment</a>
+    <a href="/animalcomment/new/{{animal.id}}" class="btn btn-primary btn-sm" role="button">New Comment</a>
 
     {% if comments %}
     <h1 class="display-5">Comments</h1>
     {% for comment in comments %}
         {% if current_user == comment.author %}
-            <a href="/comment/delete/{{comment.id}}"><img width="20" src="/static/delete.png"></a> 
-            <a href="/comment/edit/{{comment.id}}"><img width="20" src="/static/edit.png"></a>
+            <a href="/animalcomment/delete/{{comment.id}}"><img width="20" src="/static/delete.png"></a> 
+            <a href="/animalcomment/edit/{{comment.id}}"><img width="20" src="/static/edit.png"></a>
         {% endif %}
         {{moment(comment.create_date).calendar()}} {{comment.author.username}} 
         {% if comment.modifydate %}

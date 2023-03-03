@@ -195,7 +195,7 @@ def commentEdit(commentID):
     if form.validate_on_submit():
         editComment.update(
             content = form.content.data,
-            modifydate = dt.datetime.utcnow
+            modify_date = dt.datetime.utcnow
         )
         return redirect(url_for('blog',blogID=editComment.blog.id))
 
